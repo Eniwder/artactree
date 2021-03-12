@@ -327,4 +327,14 @@ header {
 .heros {
   margin-top: 128px;
 }
+
+@media screen and (max-width: 420px) {
+  .row > .spacer {
+    display: none !important;
+  }
+  .v-item-group .v-btn.v-btn.v-size--default {
+    min-width: 40px !important;
+    width: 40px !important;
+  }
+}
 </style>

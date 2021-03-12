@@ -36,6 +36,7 @@ export default {
       deleteName: Boolean,
       elemBack: Boolean,
       opacity: Number,
+      horizon: Boolean,
     },
     filterElem: null,
     filterType: null,
@@ -97,7 +98,8 @@ export default {
       const cols = maxW / (iconW + margin);
       const needCols = parseInt(this.heros.length / rows + 0.99);
       const needRows = parseInt(this.heros.length / cols + 0.99);
-      this.minWidth = needCols * (iconW + margin) + 'px';
+      const _minWidth = needCols * (iconW + margin);
+      this.minWidth = this.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth) + 'px';
       this.maxHeight = Math.max(window.innerHeight, needRows * (iconH + margin)) + 'px';
     },
     rclick(e) {

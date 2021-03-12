@@ -101,8 +101,6 @@ export default {
       const _minWidth = needCols * (iconW + margin);
       this.minWidth =
         (this.opts.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
-      console.log('a', _minWidth);
-      console.log(this.opts.horizon, window.innerHeight, needRows * (iconH + margin));
       this.maxHeight =
         (this.opts.horizon
           ? window.innerHeight
@@ -134,31 +132,45 @@ export default {
       if (trg.count < 1) return;
       trg.count -= 1;
       // 自動で子を消す処理を入れると、素材が被っている時に対応ができない
-      // いいアイディアがあれば実装
-      // this.$emit('devoSearch', { trg, level: this.level });
+      this.$emit('devoSearch', { trg, level: this.level });
+      // いいアイディアがあれば実装, { trg, level: this.level });
     },
-    childrenSearch(children, need) {
-      need = need || 1;
-      if (need > 0) {
-        this.resetHeroStatus(false);
-      }
+    dchildrenSearch(children) {
       const thisLevelChildren = children.filter((_) => _.level === this.level);
       const lowLevelChildren = children.filter((_) => _.level !== this.level);
       const nextChildren = [
         lowLevelChildren,
         thisLevelChildren.map((_) => _.children).flat(),
       ].flat();
-      thisLevelChildren.forEach((hero) => (hero.count += need));
-      this.$emit(
-        'childrenSearch',
-        {
-          trg: {
-            children: nextChildren,
-          },
-          level: this.level,
+      children.forEach((hero) => {
+        const minCount = hero.parent.reduce((acc, v) => {
+          acc += v.count * (v.name === 'プリースト' || v.name === 'ハイスピリット' ? 3 : 1);
+          return acc;
+        }, 0);
+        hero.count = Math.min(hero.count, minCount);
+      });
+      this.$emit('devoSearch', {
+        trg: {
+          children: nextChildren,
         },
-        need
-      );
+        level: this.level,
+      });
+    },
+    childrenSearch(children) {
+      this.resetHeroStatus(false);
+      const thisLevelChildren = children.filter((_) => _.level === this.level);
+      const lowLevelChildren = children.filter((_) => _.level !== this.level);
+      const nextChildren = [
+        lowLevelChildren,
+        thisLevelChildren.map((_) => _.children).flat(),
+      ].flat();
+      thisLevelChildren.forEach((hero) => (hero.count += 1));
+      this.$emit('childrenSearch', {
+        trg: {
+          children: nextChildren,
+        },
+        level: this.level,
+      });
     },
     parentSearch(parent) {
       this.resetHeroStatus(false);

@@ -230,11 +230,11 @@ export default {
       this.parentSearch(event);
     },
     devoSearch(event) {
-      this.childrenSearch(event, -1);
-    },
-    childrenSearch(event, need) {
       if (event.level > 0)
-        this.$refs.heroLists[event.level - 1].childrenSearch(event.trg.children, need);
+        this.$refs.heroLists[event.level - 1].dchildrenSearch(event.trg.children);
+    },
+    childrenSearch(event) {
+      if (event.level > 0) this.$refs.heroLists[event.level - 1].childrenSearch(event.trg.children);
     },
     parentSearch(event) {
       if (event.level < this.$refs.heroLists.length - 1)

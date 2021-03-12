@@ -64,7 +64,7 @@
 
                 <v-list-item class="options">
                   <v-list-item-title>
-                    <v-slider max="240" min="100" label="アイコンサイズ" v-model="opts.iconWidth"></v-slider>
+                    <v-slider max="240" min="80" label="アイコンサイズ" v-model="opts.iconWidth"></v-slider>
                   </v-list-item-title>
                 </v-list-item>
 

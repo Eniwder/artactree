@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :style="{ backgroundColor: colors[level], minWidth: minWidth }"
+    :style="{ backgroundColor: colors[level], minWidth: minWidth, maxHeight: maxHeight }"
     @click.right="rclick"
     ref="wrapper"
   >
@@ -74,6 +74,7 @@ export default {
       },
     },
     minWidth: '128px',
+    maxHeight: 'max-height: calc(100vh - 128px);',
   }),
   mounted() {
     this.heros = heros[this.level];
@@ -91,9 +92,13 @@ export default {
       const iconW = this.opts.iconWidth;
       const iconH = iconW * iconRate + margin;
       const maxH = window.innerHeight - 128;
+      const maxW = window.innerWidth;
       const rows = maxH / iconH - 1;
-      const needLine = parseInt(this.heros.length / rows + 0.99);
-      this.minWidth = Math.min(window.innerWidth, needLine * (iconW + margin)) + 'px';
+      const cols = maxW / (iconW + margin);
+      const needCols = parseInt(this.heros.length / rows + 0.99);
+      const needRows = parseInt(this.heros.length / cols + 0.99);
+      this.minWidth = needCols * (iconW + margin) + 'px';
+      this.maxHeight = Math.max(window.innerHeight, needRows * (iconH + margin)) + 'px';
     },
     rclick(e) {
       e.preventDefault();

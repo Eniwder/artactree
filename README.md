@@ -1,4 +1,4 @@
-# artac_search
+# artactree
 
 ## アルカナタクティクスの合成ツリー(非公式)です
 https://eniwder.github.io/artactree/

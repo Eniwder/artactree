@@ -99,8 +99,14 @@ export default {
       const needCols = parseInt(this.heros.length / rows + 0.99);
       const needRows = parseInt(this.heros.length / cols + 0.99);
       const _minWidth = needCols * (iconW + margin);
-      this.minWidth = this.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth) + 'px';
-      this.maxHeight = Math.max(window.innerHeight, needRows * (iconH + margin)) + 'px';
+      this.minWidth =
+        (this.opts.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
+      console.log('a', _minWidth);
+      console.log(this.opts.horizon, window.innerHeight, needRows * (iconH + margin));
+      this.maxHeight =
+        (this.opts.horizon
+          ? window.innerHeight
+          : Math.max(window.innerHeight, needRows * (iconH + margin))) + 'px';
     },
     rclick(e) {
       e.preventDefault();

@@ -1,24 +1,22 @@
-# artac_search
+# artactree
 
-## Project setup
-```
-npm install
-```
+## アルカナタクティクスの合成ツリー(非公式)です
+https://eniwder.github.io/artactree/
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+画像を無断で使用していますので、運営に注意されたら非公開にします。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 使い方補足
+キャラをクリックするとアプリと同様に合成ツリーが表示されます。
 
-### Lints and fixes files
-```
-npm run lint
-```
+その時に素材キャラを右クリックするとカウントが1つ減ります。
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+「このキャラは用意したヨシ！」って時に活用できます。
+
+素材の素材はカウントが減らないので注意してください。
+
+## 使っていて
+致命的なバグやデータの間違いがあったらお気軽にご連絡ください。
+
+https://twitter.com/Eniel120
+
+新規キャラが追加されるのか知りませんが、更新は期待しないでください。

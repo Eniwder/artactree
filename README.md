@@ -12,6 +12,10 @@ https://eniwder.github.io/artactree/
 
 「このキャラは用意したヨシ！」って時に活用できます。
 
+## デスクトップアプリ版
+こちらのexeからどうぞ
+https://github.com/Eniwder/artactree/releases
+
 ## 使っていて
 致命的なバグやデータの間違いがあったらお気軽にご連絡ください。
 

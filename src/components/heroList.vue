@@ -131,9 +131,7 @@ export default {
       const trg = this.heros.find((hero) => hero.name === name);
       if (trg.count < 1) return;
       trg.count -= 1;
-      // 自動で子を消す処理を入れると、素材が被っている時に対応ができない
       this.$emit('devoSearch', { trg, level: this.level });
-      // いいアイディアがあれば実装, { trg, level: this.level });
     },
     dchildrenSearch(children) {
       const thisLevelChildren = children.filter((_) => _.level === this.level);
@@ -144,7 +142,11 @@ export default {
       ].flat();
       children.forEach((hero) => {
         const minCount = hero.parent.reduce((acc, v) => {
-          acc += v.count * (v.name === 'プリースト' || v.name === 'ハイスピリット' ? 3 : 1);
+          const subCount = v.children.reduce((acc, v) => {
+            acc += v.name === hero.name ? 1 : 0;
+            return acc;
+          }, 0);
+          acc += v.count * subCount;
           return acc;
         }, 0);
         hero.count = Math.min(hero.count, minCount);

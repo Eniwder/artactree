@@ -73,7 +73,7 @@ export default {
       return colors[this.elem];
     },
     borderCor() {
-      return this.focus ? '#FDD835' : '';
+      return this.focus && this.count <= 0 ? '#939225' : this.focus ? '#FDD835' : '';
     },
     _opacity() {
       return this.isActive ? '1' : this.opacity;

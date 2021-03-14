@@ -126,16 +126,18 @@ export default {
       } else {
         this.$emit('evoSearch', { trg, level: this.level }); // このコンポーネント間でherosの状態を変えていくか、一旦親に任せるか悩む
       }
+      trg.count += 1;
       trg.focus = !focus;
     },
     additinalEvoSearch(name) {
       const trg = this.heros.find((hero) => hero.name === name);
-      trg.count += trg.focus && trg.count === 0 ? 2 : 1;
+      trg.count += 1;
       trg.focus = true;
       this.$emit('additinalEvoSearch', { trg, level: this.level, add: true }); // このコンポーネント間でherosの状態を変えていくか、一旦親に任せるか悩む
     },
     selectedRight(name) {
       const trg = this.heros.find((hero) => hero.name === name);
+      console.log(trg.count);
       if (trg.count < 1) return;
       trg.count -= 1;
       this.$emit('devoSearch', { trg, level: this.level });

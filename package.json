@@ -1,6 +1,6 @@
 {
   "name": "artac_search",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,6 +14,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "electron-cookies": "github:heap/electron-cookies",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
     "vuetify": "^2.4.0"

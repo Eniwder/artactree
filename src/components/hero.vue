@@ -83,8 +83,12 @@ export default {
     },
   },
   methods: {
-    selected() {
-      this.$emit('selected', this.name);
+    selected(event) {
+      if (event.ctrlKey || event.shiftKey) {
+        this.$emit('optinalSelected', this.name);
+      } else {
+        this.$emit('selected', this.name);
+      }
     },
     selectedRight(event) {
       event.preventDefault();

@@ -15,6 +15,7 @@
         :filterType="filterType"
         :width="iconWidthPx"
         @selected="selected($event)"
+        @optinalSelected="additinalEvoSearch($event)"
         @selectedRight="selectedRight($event)"
       ></hero>
     </div>
@@ -127,6 +128,12 @@ export default {
       }
       trg.focus = !focus;
     },
+    additinalEvoSearch(name) {
+      const trg = this.heros.find((hero) => hero.name === name);
+      trg.count += trg.focus && trg.count === 0 ? 2 : 1;
+      trg.focus = true;
+      this.$emit('additinalEvoSearch', { trg, level: this.level, add: true }); // このコンポーネント間でherosの状態を変えていくか、一旦親に任せるか悩む
+    },
     selectedRight(name) {
       const trg = this.heros.find((hero) => hero.name === name);
       if (trg.count < 1) return;
@@ -158,8 +165,8 @@ export default {
         level: this.level,
       });
     },
-    childrenSearch(children) {
-      this.resetHeroStatus(false);
+    childrenSearch(children, add) {
+      if (!add) this.resetHeroStatus();
       const thisLevelChildren = children.filter((_) => _.level === this.level);
       const lowLevelChildren = children.filter((_) => _.level !== this.level);
       const nextChildren = [
@@ -172,14 +179,16 @@ export default {
           children: nextChildren,
         },
         level: this.level,
+        add: add,
       });
     },
-    parentSearch(parent) {
-      this.resetHeroStatus(false);
+    parentSearch(parent, add) {
+      if (add) this.resetHeroStatus();
       parent.forEach((hero) => (hero.active = true));
       this.$emit('parentSearch', {
         trg: { parent: parent.map((_) => _.parent).flat() },
         level: this.level,
+        add: add,
       });
     },
     nameSearch(name) {

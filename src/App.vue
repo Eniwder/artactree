@@ -151,6 +151,7 @@
           :filterElem="filterElem"
           :filterType="filterType"
           @evoSearch="evoSearch"
+          @additinalEvoSearch="additinalEvoSearch"
           @devoSearch="devoSearch"
           @childrenSearch="childrenSearch"
           @parentSearch="parentSearch"
@@ -159,13 +160,28 @@
         ></hero-list>
       </div>
     </div>
+
+ <v-snackbar
+      v-model="snackbar"
+    >
+      {{ snackbarText }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="pink"
+          snackbarText
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+ </v-snackbar>
+
   </v-app>
 </template>
 
 <script>
-// TODO 透過度
-// 盾横
-// reverse
 import HeroList from './components/heroList.vue';
 import heros from '@/heroDB.js';
 
@@ -194,9 +210,12 @@ export default {
       horizon: false,
       opacity: 0.4,
       reverse: false,
+      release: '',
     },
     levels: range(5),
     heroNames: heros.flat().map((_) => _.name),
+    snackbar: false,
+    snackbarText: '',
   }),
   computed: {
     lvs() {
@@ -229,23 +248,35 @@ export default {
       this.childrenSearch(event);
       this.parentSearch(event);
     },
+    additinalEvoSearch(event) {
+      this.childrenSearch(event);
+    },
     devoSearch(event) {
       if (event.level > 0)
         this.$refs.heroLists[event.level - 1].dchildrenSearch(event.trg.children);
     },
     childrenSearch(event) {
-      if (event.level > 0) this.$refs.heroLists[event.level - 1].childrenSearch(event.trg.children);
+      if (event.level > 0)
+        this.$refs.heroLists[event.level - 1].childrenSearch(event.trg.children, event.add);
     },
     parentSearch(event) {
       if (event.level < this.$refs.heroLists.length - 1)
-        this.$refs.heroLists[event.level + 1].parentSearch(event.trg.parent);
+        this.$refs.heroLists[event.level + 1].parentSearch(event.trg.parent, event.add);
     },
     nameSearch() {
       this.$refs.heroLists.forEach((heros) => heros.nameSearch(this.filterName));
     },
   },
   mounted() {
+    const release = '1.0';
     Object.assign(this.opts, $cookies.get('opts'));
+    console.log(this.opts.release, release);
+    if (this.opts.release !== release) {
+      this.snackbar = true;
+      this.snackbarText =
+        'キャラ選択中に「Shift+クリック」をすることで複数キャラの合成を同時に検索できるようになりました。';
+      this.opts.release = release;
+    }
   },
   watch: {
     opts: {
@@ -258,6 +289,7 @@ export default {
     queringtext(v, ov) {
       if (typeof v === 'string' && v.trim() === '') {
         this.filterName = '';
+        this.snackbar = true;
         this.resetFilter(true);
       } else {
       }

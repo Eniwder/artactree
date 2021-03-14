@@ -12,6 +12,8 @@ https://eniwder.github.io/artactree/
 
 「このキャラは用意したヨシ！」って時に活用できます。
 
+「Shift+クリック」をすると、追加で他のキャラの素材も検索できます。
+
 ## デスクトップアプリ版
 こちらのexeからどうぞ
 https://github.com/Eniwder/artactree/releases

@@ -2,6 +2,7 @@ module.exports = {
   transpileDependencies: [
     'vuetify',
   ],
+  outputDir: "docs",
   pluginOptions: {
     electronBuilder: {
       builderOptions: {

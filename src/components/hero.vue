@@ -26,6 +26,7 @@ export default {
     name: String,
     type: String,
     elem: String,
+    role: String,
     opacity: Number,
     active: Boolean,
     deleteName: Boolean,
@@ -34,6 +35,7 @@ export default {
     count: Number,
     filterElem: String,
     filterType: String,
+    filterRole: String,
     focus: Boolean,
     width: String,
   },
@@ -57,7 +59,8 @@ export default {
     isActive() {
       const fe = !this.filterElem || this.filterElem === this.elem;
       const ft = !this.filterType || this.filterType === this.type;
-      const filterd = fe && ft;
+      const fr = !this.filterRole || this.filterRole === this.role;
+      const filterd = fe && ft && fr;
       return filterd && (this.active || this.count > 0 || this.focus);
     },
     elemColorStyle() {

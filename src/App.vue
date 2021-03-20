@@ -10,7 +10,7 @@
           <v-row>
             <v-autocomplete
               solo
-              v-show="!$vuetify.breakpoint.xs"
+              v-show="!$vuetify.breakpoint.sm && !$vuetify.breakpoint.xs"
               v-model="filterName"
               :items="heroNames"
               :filter="filteredHeroNames"
@@ -53,24 +53,34 @@
               </template>
 
               <v-list>
-
                 <v-list-item>
-                    <v-spacer></v-spacer>
-                    <v-btn icon href="https://github.com/Eniwder/artactree" target="_blank">
-                       <v-icon>mdi-github</v-icon>
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                                    </v-list-item>
+                  <v-spacer></v-spacer>
+                  <v-btn icon href="https://github.com/Eniwder/artactree" target="_blank">
+                    <v-icon>mdi-github</v-icon>
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                </v-list-item>
 
                 <v-list-item class="options">
                   <v-list-item-title>
-                    <v-slider max="240" min="80" label="アイコンサイズ" v-model="opts.iconWidth"></v-slider>
+                    <v-slider
+                      max="240"
+                      min="80"
+                      label="アイコンサイズ"
+                      v-model="opts.iconWidth"
+                    ></v-slider>
                   </v-list-item-title>
                 </v-list-item>
 
                 <v-list-item class="options">
                   <v-list-item-title>
-                    <v-slider max="1" min="0" step="0.05" label="透過度" v-model="opts.opacity"></v-slider>
+                    <v-slider
+                      max="1"
+                      min="0"
+                      step="0.05"
+                      label="透過度"
+                      v-model="opts.opacity"
+                    ></v-slider>
                   </v-list-item-title>
                 </v-list-item>
 
@@ -99,7 +109,7 @@
                   <v-list-item-action>
                     <v-switch v-model="opts.reverse" color="purple"></v-switch>
                   </v-list-item-action>
-                    <v-list-item-title>リバース</v-list-item-title>
+                  <v-list-item-title>リバース</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
@@ -112,31 +122,106 @@
             </v-menu>
           </v-row>
           <v-row>
+            <v-btn-toggle
+              v-show="!$vuetify.breakpoint.xs"
+              v-model="filterRole"
+              dark
+              class="type-group"
+            >
+              <v-btn value="attacker">
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/role_attacker.png"
+                ></v-img>
+                攻撃
+              </v-btn>
+              <v-btn value="defenser">
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/role_defenser.png"
+                ></v-img>
+                防御
+              </v-btn>
+              <v-btn value="helper">
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/role_helper.png"
+                ></v-img>
+                補助
+              </v-btn>
+            </v-btn-toggle>
+
             <v-spacer></v-spacer>
             <v-btn-toggle v-model="filterType" dark class="type-group">
               <v-btn value="sword">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_sword.png"></v-img contain>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_sword.png"
+                ></v-img>
               </v-btn>
               <v-btn value="arrow">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_arrow.png"></v-img contain>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_arrow.png"
+                ></v-img>
               </v-btn>
               <v-btn value="assassin">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_assassin.png"></v-img>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_assassin.png"
+                ></v-img>
               </v-btn>
               <v-btn value="magic">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_magic.png"></v-img contain>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_magic.png"
+                ></v-img>
               </v-btn>
               <v-btn value="heal">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_heal.png"></v-img contain>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_heal.png"
+                ></v-img>
               </v-btn>
               <v-btn value="fist">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_fist.png"></v-img contain>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_fist.png"
+                ></v-img>
               </v-btn>
               <v-btn value="spear">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_spear.png"></v-img>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_spear.png"
+                ></v-img>
               </v-btn>
               <v-btn value="spilit">
-                <v-img contain width="24px" max-height="32px" src="./assets/res/type_spilit.png"></v-img>
+                <v-img
+                  contain
+                  width="24px"
+                  max-height="32px"
+                  src="./assets/res/type_spilit.png"
+                ></v-img>
               </v-btn>
             </v-btn-toggle>
           </v-row>
@@ -149,6 +234,7 @@
           :level="lv"
           :opts="opts"
           :filterElem="filterElem"
+          :filterRole="filterRole"
           :filterType="filterType"
           @evoSearch="evoSearch"
           @additinalEvoSearch="additinalEvoSearch"
@@ -161,23 +247,13 @@
       </div>
     </div>
 
- <v-snackbar
-      v-model="snackbar"
-    >
+    <v-snackbar v-model="snackbar">
       {{ snackbarText }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          snackbarText
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          Close
-        </v-btn>
+        <v-btn color="pink" snackbarText v-bind="attrs" @click="snackbar = false"> Close </v-btn>
       </template>
- </v-snackbar>
-
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -201,6 +277,7 @@ export default {
     queringtext: '',
     filterElem: undefined,
     filterType: undefined,
+    filterRole: undefined,
     filterName: undefined,
     opts: {
       iconWidth: 140,
@@ -230,6 +307,7 @@ export default {
       this.filterName = '';
       this.filterElem = undefined;
       this.filterType = undefined;
+      this.filterRole = undefined;
       this.$refs.heroLists.forEach((_) => _.resetHeroStatus(active));
     },
     filteredHeroNames(item, queryText, itemText) {
@@ -268,13 +346,12 @@ export default {
     },
   },
   mounted() {
-    const release = '1.0';
+    const release = '1.0.3';
     Object.assign(this.opts, $cookies.get('opts'));
     console.log(this.opts.release, release);
     if (this.opts.release !== release) {
       this.snackbar = true;
-      this.snackbarText =
-        'キャラ選択中に「Shift+クリック」をすることで複数キャラの合成を同時に検索できるようになりました。';
+      this.snackbarText = '役割フィルタを追加しました。';
       this.opts.release = release;
     }
   },
@@ -299,6 +376,9 @@ export default {
       this.$refs.autocomplete.blur();
     },
     filterElem() {
+      this.$refs.heroLists.forEach((_) => _.resetHeroStatus(true));
+    },
+    filterRole() {
       this.$refs.heroLists.forEach((_) => _.resetHeroStatus(true));
     },
     filterType() {

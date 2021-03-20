@@ -13,6 +13,7 @@
         :opacity="opts.opacity"
         :filterElem="filterElem"
         :filterType="filterType"
+        :filterRole="filterRole"
         :width="iconWidthPx"
         @selected="selected($event)"
         @optinalSelected="additinalEvoSearch($event)"
@@ -41,6 +42,7 @@ export default {
     },
     filterElem: null,
     filterType: null,
+    filterRole: null,
   },
   computed: {
     iconWidthPx() {
@@ -63,18 +65,6 @@ export default {
   data: () => ({
     colors: ['#9E9E9E', '#a4b4a5', '#a4adc0', '#a68daf', '#b7af80'],
     heros: [],
-    filterParam: {
-      ks: {
-        elem: false,
-        type: false,
-        name: false,
-      },
-      vs: {
-        elem: '',
-        type: '',
-        name: '',
-      },
-    },
     minWidth: '128px',
     maxHeight: 'max-height: calc(100vh - 128px);',
   }),

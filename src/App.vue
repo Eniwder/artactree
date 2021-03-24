@@ -86,8 +86,8 @@
 
                 <v-list-item>
                   <v-radio-group v-model="opts.launage" row v-on:change="launageSetup">
-                      <v-radio color="purple" label="日本語" value="ja"></v-radio>
-                      <v-radio color="purple" label="中文" value="zh"></v-radio>
+                    <v-radio color="purple" label="日本語" value="ja"></v-radio>
+                    <v-radio color="purple" label="中文" value="zh"></v-radio>
                   </v-radio-group>
                 </v-list-item>
 
@@ -359,16 +359,15 @@ export default {
       this.launageChange();
     },
     launageChange() {
-      this.heroNames = heros.flat().map((_) => _.lang[this.opts.launage])
-    }
+      this.heroNames = heros.flat().map((_) => _.lang[this.opts.launage]);
+    },
   },
   mounted() {
-    const release = '1.0.3';
+    const release = require('@/../package.json').version;
     Object.assign(this.opts, $cookies.get('opts'));
-    console.log(this.opts.release, release);
 
     this.launageSetup();
-      
+
     if (this.opts.release !== release) {
       this.snackbar = true;
       this.snackbarText = this.appLaunages.snackbarText[release];
@@ -403,11 +402,11 @@ export default {
     },
     filterType() {
       this.$refs.heroLists.forEach((_) => _.resetHeroStatus(true));
-    },    
+    },
     'opts.launage'() {
       this.launageChange();
     },
-  }
+  },
 };
 </script>
 

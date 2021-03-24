@@ -8,7 +8,7 @@ const languages = {
             typeBack: 'タイプ表示',
             reverse: 'リバース',
             horizon: '水平表示',
-        }, 
+        },
         filterRole: {
             attacker: '攻撃',
             defenser: '防御',
@@ -18,7 +18,7 @@ const languages = {
             '1.0': '初版。',
             '1.0.2': '右クリックの挙動を少し修正。',
             '1.0.3': '役割フィルタを追加しました。',
-            '1.0.4': '言語を増やす。',
+            '1.0.4': '多言語対応(中文)',
         }
     },
     zh: {
@@ -30,7 +30,7 @@ const languages = {
             typeBack: '類型顯示',
             reverse: '倒轉',
             horizon: '水平顯示',
-        }, 
+        },
         filterRole: {
             attacker: '攻擊',
             defenser: '防禦',

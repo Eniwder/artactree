@@ -66,7 +66,7 @@
                     <v-slider
                       max="240"
                       min="80"
-                      label="アイコンサイズ"
+                      :label="this.appLaunages.options.iconWidth"
                       v-model="opts.iconWidth"
                     ></v-slider>
                   </v-list-item-title>
@@ -78,45 +78,52 @@
                       max="1"
                       min="0"
                       step="0.05"
-                      label="透過度"
+                      :label="this.appLaunages.options.opacity"
                       v-model="opts.opacity"
                     ></v-slider>
                   </v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
+                  <v-radio-group v-model="opts.launage" row v-on:change="launageSetup">
+                      <v-radio color="purple" label="日本語" value="ja"></v-radio>
+                      <v-radio color="purple" label="中文" value="zh"></v-radio>
+                  </v-radio-group>
+                </v-list-item>
+
+                <v-list-item>
                   <v-list-item-action>
                     <v-switch v-model="opts.deleteName" color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>名前を省略</v-list-item-title>
+                  <v-list-item-title>{{ this.appLaunages.options.deleteName }}</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-action>
                     <v-switch v-model="opts.elemBack" color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>属性カラー</v-list-item-title>
+                  <v-list-item-title>{{ this.appLaunages.options.elemBack }}</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-action>
                     <v-switch v-model="opts.typeBack" color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>タイプ表示</v-list-item-title>
+                  <v-list-item-title>{{ this.appLaunages.options.typeBack }}</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-action>
                     <v-switch v-model="opts.reverse" color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>リバース</v-list-item-title>
+                  <v-list-item-title>{{ this.appLaunages.options.reverse }}</v-list-item-title>
                 </v-list-item>
 
                 <v-list-item>
                   <v-list-item-action>
                     <v-switch v-model="opts.horizon" color="purple"></v-switch>
                   </v-list-item-action>
-                  <v-list-item-title>水平表示</v-list-item-title>
+                  <v-list-item-title>{{ this.appLaunages.options.horizon }}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -135,7 +142,7 @@
                   max-height="32px"
                   src="./assets/res/role_attacker.png"
                 ></v-img>
-                攻撃
+                {{ this.appLaunages.filterRole.attacker }}
               </v-btn>
               <v-btn value="defenser">
                 <v-img
@@ -144,7 +151,7 @@
                   max-height="32px"
                   src="./assets/res/role_defenser.png"
                 ></v-img>
-                防御
+                {{ this.appLaunages.filterRole.defenser }}
               </v-btn>
               <v-btn value="helper">
                 <v-img
@@ -153,7 +160,7 @@
                   max-height="32px"
                   src="./assets/res/role_helper.png"
                 ></v-img>
-                補助
+                {{ this.appLaunages.filterRole.helper }}
               </v-btn>
             </v-btn-toggle>
 
@@ -260,6 +267,7 @@
 <script>
 import HeroList from './components/heroList.vue';
 import heros from '@/heroDB.js';
+import languages from '@/languages.js';
 
 const range = (n) => [...Array(n).keys()];
 function reverse(arr) {
@@ -288,11 +296,13 @@ export default {
       opacity: 0.4,
       reverse: false,
       release: '',
+      launage: 'ja',
     },
     levels: range(5),
-    heroNames: heros.flat().map((_) => _.name),
+    heroNames: [],
     snackbar: false,
     snackbarText: '',
+    appLaunages: languages[Object.keys(languages)[0]],
   }),
   computed: {
     lvs() {
@@ -344,14 +354,24 @@ export default {
     nameSearch() {
       this.$refs.heroLists.forEach((heros) => heros.nameSearch(this.filterName));
     },
+    launageSetup() {
+      this.appLaunages = languages[this.opts.launage] ?? languages[Object.keys(languages)[0]];
+      this.launageChange();
+    },
+    launageChange() {
+      this.heroNames = heros.flat().map((_) => _.lang[this.opts.launage])
+    }
   },
   mounted() {
     const release = '1.0.3';
     Object.assign(this.opts, $cookies.get('opts'));
     console.log(this.opts.release, release);
+
+    this.launageSetup();
+      
     if (this.opts.release !== release) {
       this.snackbar = true;
-      this.snackbarText = '役割フィルタを追加しました。';
+      this.snackbarText = this.appLaunages.snackbarText[release];
       this.opts.release = release;
     }
   },
@@ -383,8 +403,11 @@ export default {
     },
     filterType() {
       this.$refs.heroLists.forEach((_) => _.resetHeroStatus(true));
+    },    
+    'opts.launage'() {
+      this.launageChange();
     },
-  },
+  }
 };
 </script>
 

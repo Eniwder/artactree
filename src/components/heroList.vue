@@ -7,6 +7,7 @@
     <div v-for="hero in heros" :key="hero.id" class="hero" :style="{ fontSize: fontSizePx }">
       <hero
         v-bind="hero"
+        :opts="opts"
         :deleteName="opts.deleteName"
         :elemBack="opts.elemBack"
         :typeBack="opts.typeBack"
@@ -39,6 +40,7 @@ export default {
       elemBack: Boolean,
       opacity: Number,
       horizon: Boolean,
+      launage: String,
     },
     filterElem: null,
     filterType: null,
@@ -107,8 +109,8 @@ export default {
         hero.active = active;
       });
     },
-    selected(name) {
-      const trg = this.heros.find((hero) => hero.name === name);
+    selected(id) {
+      const trg = this.heros.find((hero) => hero.id === id);
       const focus = trg.focus;
       this.resetHeroStatus(trg.focus);
       if (focus) {
@@ -119,14 +121,14 @@ export default {
       trg.count += 1;
       trg.focus = !focus;
     },
-    additinalEvoSearch(name) {
-      const trg = this.heros.find((hero) => hero.name === name);
+    additinalEvoSearch(id) {
+      const trg = this.heros.find((hero) => hero.id === id);
       trg.count += 1;
       trg.focus = true;
       this.$emit('additinalEvoSearch', { trg, level: this.level, add: true }); // このコンポーネント間でherosの状態を変えていくか、一旦親に任せるか悩む
     },
-    selectedRight(name) {
-      const trg = this.heros.find((hero) => hero.name === name);
+    selectedRight(id) {
+      const trg = this.heros.find((hero) => hero.id === id);
       console.log(trg.count);
       if (trg.count < 1) return;
       trg.count -= 1;
@@ -142,7 +144,7 @@ export default {
       children.forEach((hero) => {
         const minCount = hero.parent.reduce((acc, v) => {
           const subCount = v.children.reduce((acc, v) => {
-            acc += v.name === hero.name ? 1 : 0;
+            acc += v.id === hero.id ? 1 : 0;
             return acc;
           }, 0);
           acc += v.count * subCount;
@@ -184,9 +186,10 @@ export default {
       });
     },
     nameSearch(name) {
-      const trg = this.heros.find((hero) => hero.name === name);
+      const trg = this.heros.find((hero) => hero.lang[this.opts.launage] === name);
+
       if (trg) {
-        this.selected(name);
+        this.selected(trg.id);
       }
     },
   },

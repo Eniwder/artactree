@@ -14,6 +14,14 @@ https://eniwder.github.io/artactree/
 
 「Shift+クリック」をすると、追加で他のキャラの素材も検索できます。
 
+### note
+Click the character to display the evolution tree as in the app.
+
+If you right-click the material character, the count will be decremented by one.
+
+If you press "Shift + click", you can additionally search for materials of other characters. 
+
+
 ## デスクトップアプリ版
 こちらのexeからどうぞ
 https://github.com/Eniwder/artactree/releases

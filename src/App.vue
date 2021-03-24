@@ -356,6 +356,10 @@ export default {
     },
     launageSetup() {
       this.appLaunages = languages[this.opts.launage] ?? languages[Object.keys(languages)[0]];
+      this.launageChange();
+    },
+    launageChange() {
+      this.heroNames = heros.flat().map((_) => _.lang[this.opts.launage])
     }
   },
   mounted() {
@@ -364,10 +368,7 @@ export default {
     console.log(this.opts.release, release);
 
     this.launageSetup();
-    this.heroNames = heros.flat().map((_) => _.name)
-    
-    console.log(this.heroNames);
-
+      
     if (this.opts.release !== release) {
       this.snackbar = true;
       this.snackbarText = this.appLaunages.snackbarText[release];
@@ -402,6 +403,9 @@ export default {
     },
     filterType() {
       this.$refs.heroLists.forEach((_) => _.resetHeroStatus(true));
+    },    
+    'opts.launage'() {
+      this.launageChange();
     },
   }
 };

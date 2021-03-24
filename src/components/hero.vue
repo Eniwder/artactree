@@ -14,7 +14,7 @@
   >
     <span v-show="count > 1" class="reqCount" :style="{ bottom: reqBottom }">x{{ count }}</span>
     <v-img :width="imgWidth" :src="imgSrc"></v-img>
-    <span v-show="showName">{{ name }}</span>
+    <span v-show="showName">{{ langName }}</span>
   </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
     type: String,
     elem: String,
     role: String,
+    lang: Object,
     opacity: Number,
     active: Boolean,
     deleteName: Boolean,
@@ -38,6 +39,9 @@ export default {
     filterRole: String,
     focus: Boolean,
     width: String,
+    opts: {
+      launage: String,
+    }
   },
   components: {},
   computed: {
@@ -88,25 +92,35 @@ export default {
   methods: {
     selected(event) {
       if (event.ctrlKey || event.shiftKey) {
-        this.$emit('optinalSelected', this.name);
+        this.$emit('optinalSelected', this.id);
       } else {
-        this.$emit('selected', this.name);
+        this.$emit('selected', this.id);
       }
     },
     selectedRight(event) {
       event.preventDefault();
-      this.$emit('selectedRight', this.name);
+      this.$emit('selectedRight', this.id);
     },
+    launageChange() {
+      this.langName = this.lang[this.opts.launage];
+    }
   },
   data: () => ({
+    langName: '',
     style: 'font-size:16px',
     options: {
       minSize: 11,
       maxSize: 120,
     },
   }),
-  mounted() {},
-  watch: {},
+  mounted() {
+    this.launageChange();
+  },
+  watch: {
+    'opts.launage'() {
+      this.launageChange();
+    },
+  },
 };
 </script>
 

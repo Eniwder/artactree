@@ -15,33 +15,33 @@ const hero = lv => (name, id, type, elem, role, children) => ({
 
 const heroLv0 = hero(0)
 const herosLv0 = [
-  heroLv0('ソードマン', '1101', 'sword', 'fire', 'defenser'), // 0
-  heroLv0('アーチャー', '1201', 'arrow', 'green', 'attacker'), // 1
-  heroLv0('ローグ', '1301', 'assassin', 'dark', 'attacker'), // 2
-  heroLv0('ウィザード', '1401', 'magic', 'dark', 'attacker'), // 3
-  heroLv0('クレリック', '1501', 'heal', 'light', 'helper'), // 4
-  heroLv0('ファイター', '1601', 'fist', 'ian', 'defenser'), // 5
-  heroLv0('ランサー', '1701', 'spear', 'ice', 'defenser'), // 6
-  heroLv0('スピリット', '1801', 'spilit', 'ian', 'helper'), // 7
+  heroLv0('劍士', '1101', 'sword', 'fire', 'defenser'),     // 0
+  heroLv0('弓箭手', '1201', 'arrow', 'green', 'attacker'),  // 1
+  heroLv0('盜賊', '1301', 'assassin', 'dark', 'attacker'),  // 2
+  heroLv0('巫師', '1401', 'magic', 'dark', 'attacker'),     // 3
+  heroLv0('祭司', '1501', 'heal', 'light', 'helper'),       // 4
+  heroLv0('戰士', '1601', 'fist', 'ian', 'defenser'),       // 5
+  heroLv0('槍術士', '1701', 'spear', 'ice', 'defenser'),    // 6
+  heroLv0('精靈', '1801', 'spilit', 'ian', 'helper'),       // 7
 ];
 const heroLv1 = hero(1)
 const herosLv1 = [
-  heroLv1('スペルソード', '2101', 'sword', 'fire', 'attacker', [herosLv0[0], herosLv0[6]]),
-  heroLv1('パラディン', '2102', 'sword', 'light', 'defenser', [herosLv0[0], herosLv0[0]]),
-  heroLv1('スナイパー', '2201', 'arrow', 'fire', 'attacker', [herosLv0[1], herosLv0[1]]),
-  heroLv1('チェイサー', '2202', 'arrow', 'green', 'attacker', [herosLv0[1], herosLv0[2]]),
-  heroLv1('アサシン', '2301', 'assassin', 'dark', 'attacker', [herosLv0[2], herosLv0[2]]),
-  heroLv1('ニンジャ', '2302', 'assassin', 'ian', 'attacker', [herosLv0[0], herosLv0[2]]),
-  heroLv1('ソーサラー', '2401', 'magic', 'ice', 'attacker', [herosLv0[3], herosLv0[3]]),
-  heroLv1('シャーマン', '2402', 'magic', 'ian', 'attacker', [herosLv0[3], herosLv0[5]]),
-  heroLv1('ドルイド', '2501', 'heal', 'green', 'helper', [herosLv0[3], herosLv0[4]]),
-  heroLv1('バード', '2502', 'heal', 'light', 'helper', [herosLv0[1], herosLv0[4]]),
-  heroLv1('バーバリアン', '2601', 'fist', 'dark', 'attacker', [herosLv0[5], herosLv0[5]]),
-  heroLv1('モンク', '2602', 'fist', 'ice', 'helper', [herosLv0[5], herosLv0[7]]),
-  heroLv1('ガーディアン', '2701', 'spear', 'ian', 'defenser', [herosLv0[6], herosLv0[6]]),
-  heroLv1('フェンサー', '2702', 'spear', 'dark', 'attacker', [herosLv0[1], herosLv0[6]]),
-  heroLv1('エンチャンター', '2801', 'spilit', 'green', 'attacker', [herosLv0[4], herosLv0[7]]),
-  heroLv1('ブラックスミス', '2802', 'spilit', 'fire', 'helper', [herosLv0[6], herosLv0[7]]),
+  heroLv1('魔劍士', '2101', 'sword', 'fire', 'attacker', [herosLv0[0], herosLv0[6]]),
+  heroLv1('聖騎士', '2102', 'sword', 'light', 'defenser', [herosLv0[0], herosLv0[0]]),
+  heroLv1('狙擊手', '2201', 'arrow', 'fire', 'attacker', [herosLv0[1], herosLv0[1]]),
+  heroLv1('追擊者', '2202', 'arrow', 'green', 'attacker', [herosLv0[1], herosLv0[2]]),
+  heroLv1('刺客', '2301', 'assassin', 'dark', 'attacker', [herosLv0[2], herosLv0[2]]),
+  heroLv1('忍者', '2302', 'assassin', 'ian', 'attacker', [herosLv0[0], herosLv0[2]]),
+  heroLv1('法師', '2401', 'magic', 'ice', 'attacker', [herosLv0[3], herosLv0[3]]),
+  heroLv1('薩滿', '2402', 'magic', 'ian', 'attacker', [herosLv0[3], herosLv0[5]]),
+  heroLv1('德魯伊', '2501', 'heal', 'green', 'helper', [herosLv0[3], herosLv0[4]]),
+  heroLv1('吟遊詩人', '2502', 'heal', 'light', 'helper', [herosLv0[1], herosLv0[4]]),
+  heroLv1('異邦人', '2601', 'fist', 'dark', 'attacker', [herosLv0[5], herosLv0[5]]),
+  heroLv1('武僧', '2602', 'fist', 'ice', 'helper', [herosLv0[5], herosLv0[7]]),
+  heroLv1('護衛', '2701', 'spear', 'ian', 'defenser', [herosLv0[6], herosLv0[6]]),
+  heroLv1('擊劍士', '2702', 'spear', 'dark', 'attacker', [herosLv0[1], herosLv0[6]]),
+  heroLv1('魔法師', '2801', 'spilit', 'green', 'attacker', [herosLv0[4], herosLv0[7]]),
+  heroLv1('鐵匠', '2802', 'spilit', 'fire', 'helper', [herosLv0[6], herosLv0[7]]),
 ];
 const heroLv2 = hero(2)
 const herosLv2 = [

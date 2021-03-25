@@ -28,11 +28,7 @@ export default {
     elem: String,
     role: String,
     lang: Object,
-    opacity: Number,
     active: Boolean,
-    deleteName: Boolean,
-    elemBack: Boolean,
-    typeBack: Boolean,
     count: Number,
     filterElem: String,
     filterType: String,
@@ -41,7 +37,11 @@ export default {
     width: String,
     opts: {
       launage: String,
-    }
+      deleteName: Boolean,
+      elemBack: Boolean,
+      typeBack: Boolean,
+      opacity: Number,
+    },
   },
   components: {},
   computed: {
@@ -49,13 +49,15 @@ export default {
       return require(`@/assets/res/${this.id}.png`);
     },
     backgroundImage() {
-      return this.typeBack ? 'url(' + require(`@/assets/res/type_${this.type}b.png`) + ')' : '';
+      return this.opts.typeBack
+        ? 'url(' + require(`@/assets/res/type_${this.type}b.png`) + ')'
+        : '';
     },
     imgWidth() {
-      return this.deleteName ? '100%' : '50%';
+      return this.opts.deleteName ? '100%' : '50%';
     },
     showName() {
-      return !this.deleteName;
+      return !this.opts.deleteName;
     },
     reqBottom() {
       return this.showName ? '-30%' : '-10%';
@@ -68,7 +70,7 @@ export default {
       return filterd && (this.active || this.count > 0 || this.focus);
     },
     elemColorStyle() {
-      if (!this.elemBack) return '';
+      if (!this.opts.elemBack) return '';
       const colors = {
         fire: '#e49797',
         ice: '#a3bdde',
@@ -83,10 +85,10 @@ export default {
       return this.focus && this.count <= 0 ? '#939225' : this.focus ? '#FDD835' : '';
     },
     _opacity() {
-      return this.isActive ? '1' : this.opacity;
+      return this.isActive ? '1' : this.opts.opacity;
     },
     display() {
-      return this.isActive || this.opacity ? 'inline-block' : 'none';
+      return this.isActive || this.opts.opacity ? 'inline-block' : 'none';
     },
   },
   methods: {
@@ -103,7 +105,7 @@ export default {
     },
     launageChange() {
       this.langName = this.lang[this.opts.launage];
-    }
+    },
   },
   data: () => ({
     langName: '',

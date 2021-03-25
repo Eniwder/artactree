@@ -4,16 +4,16 @@
     @click.right="rclick"
     ref="wrapper"
   >
-
-    <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass"> 
-      <div v-for="hero in filterHeroByType(heroType)" :key="hero.id" :class="heroClass" :style="{ fontSize: fontSizePx }">
+    <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass">
+      <div
+        v-for="hero in filterHeroByType(heroType)"
+        :key="hero.id"
+        :class="heroClass"
+        :style="{ fontSize: fontSizePx }"
+      >
         <hero
           v-bind="hero"
           :opts="opts"
-          :deleteName="opts.deleteName"
-          :elemBack="opts.elemBack"
-          :typeBack="opts.typeBack"
-          :opacity="opts.opacity"
           :filterElem="filterElem"
           :filterType="filterType"
           :filterRole="filterRole"
@@ -93,8 +93,8 @@ export default {
     window.removeEventListener('resize', this.adjustHeight);
   },
   methods: {
-    filterHeroByType(type) { 
-      return this.heros.filter(hero => 'all' === type || hero.type === type);
+    filterHeroByType(type) {
+      return this.heros.filter((hero) => 'all' === type || hero.type === type);
     },
     adjustHeight(e) {
       // iconW:iconH = 14:5
@@ -112,14 +112,20 @@ export default {
         const val = item['type'];
         groups[val] = groups[val] || 0;
         groups[val]++;
-        return groups
+        return groups;
       }, {});
-      const gamemodeNeedCols = Object.keys(gamemodeHeroCounts).map(key => gamemodeHeroCounts[key]).reduce((max, val) => max > val ? max : val);
+      const gamemodeNeedCols = Object.keys(gamemodeHeroCounts)
+        .map((key) => gamemodeHeroCounts[key])
+        .reduce((max, val) => (max > val ? max : val));
       const _minWidth = needCols * (iconW + margin);
       const _mingamemodWidth = gamemodeNeedCols * (iconW + margin);
 
       this.minWidth =
-        (this.opts.horizon ? this.opts.gamemode ? _mingamemodWidth : _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
+        (this.opts.horizon
+          ? this.opts.gamemode
+            ? _mingamemodWidth
+            : _minWidth
+          : Math.min(window.innerWidth, _minWidth)) + 'px';
       this.maxHeight =
         (this.opts.horizon
           ? window.innerHeight
@@ -155,7 +161,6 @@ export default {
     },
     selectedRight(id) {
       const trg = this.heros.find((hero) => hero.id === id);
-      console.log(trg.count);
       if (trg.count < 1) return;
       trg.count -= 1;
       this.$emit('devoSearch', { trg, level: this.level });
@@ -235,10 +240,14 @@ export default {
   display: block;
 }
 .gamemode-heroType {
-  display:inline-block; 
+  display: inline-block;
   vertical-align: text-top;
 }
 .v-card {
   max-height: calc(100vh - 128px);
+}
+.heroType-item {
+  display: inline-block;
+  margin-right: 10px;
 }
 </style>

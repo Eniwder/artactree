@@ -4,7 +4,7 @@
     @click.right="rclick"
     ref="wrapper"
   >
-    <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass">
+    <div v-for="heroType in heroTypeList" :key="heroType" :class="heroTypeClass">
       <div
         v-for="hero in filterHeroByType(heroType)"
         :key="hero.id"
@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     filterHeroByType(type) {
-      return this.heros.filter((hero) => 'all' === type || hero.type === type);
+      return this.heros.filter((hero) => hero.type === type);
     },
     adjustHeight(e) {
       // iconW:iconH = 14:5
@@ -242,6 +242,9 @@ export default {
 .gamemode-heroType {
   display: inline-block;
   vertical-align: text-top;
+}
+.heroType {
+  display: inline;
 }
 .v-card {
   max-height: calc(100vh - 128px);

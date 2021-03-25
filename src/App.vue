@@ -321,7 +321,7 @@ export default {
     },
     arrange() {
       return this.opts.horizon ? 'flex' : 'block';
-    }
+    },
   },
   methods: {
     resetFilter(active) {

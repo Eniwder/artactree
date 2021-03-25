@@ -6,7 +6,7 @@
   >
 
     <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass"> 
-      <div v-for="hero in elemList(heroType)" :key="hero.id" :class="heroClass" :style="{ fontSize: fontSizePx }">
+      <div v-for="hero in filterHeroByType(heroType)" :key="hero.id" :class="heroClass" :style="{ fontSize: fontSizePx }">
         <hero
           v-bind="hero"
           :opts="opts"
@@ -93,8 +93,7 @@ export default {
     window.removeEventListener('resize', this.adjustHeight);
   },
   methods: {
-    elemList(type) { 
-      //console.log(this.heros);
+    filterHeroByType(type) { 
       return this.heros.filter(hero => 'all' === type || hero.type === type);
     },
     adjustHeight(e) {
@@ -109,9 +108,18 @@ export default {
       const cols = maxW / (iconW + margin);
       const needCols = parseInt(this.heros.length / rows + 0.99);
       const needRows = parseInt(this.heros.length / cols + 0.99);
+      const gamemodeHeroCounts = this.heros.reduce((groups, item) => {
+        const val = item['type'];
+        groups[val] = groups[val] || 0;
+        groups[val]++;
+        return groups
+      }, {});
+      const gamemodeNeedCols = Object.keys(gamemodeHeroCounts).map(key => gamemodeHeroCounts[key]).reduce((max, val) => max > val ? max : val);
       const _minWidth = needCols * (iconW + margin);
+      const _mingamemodWidth = gamemodeNeedCols * (iconW + margin);
+
       this.minWidth =
-        (this.opts.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
+        (this.opts.horizon ? this.opts.gamemode ? _mingamemodWidth : _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
       this.maxHeight =
         (this.opts.horizon
           ? window.innerHeight

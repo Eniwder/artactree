@@ -68,9 +68,6 @@ export default {
           : 24;
       return w + 'px';
     },
-    fliterHeroTypeList() {
-      return this.opts.gamemode ? this.heroTypeList : ['all'];
-    },
     heroTypeClass() {
       return this.opts.gamemode && !this.opts.horizon ? 'gamemode-heroType' : 'heroType';
     },

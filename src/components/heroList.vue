@@ -4,22 +4,25 @@
     @click.right="rclick"
     ref="wrapper"
   >
-    <div v-for="hero in heros" :key="hero.id" class="hero" :style="{ fontSize: fontSizePx }">
-      <hero
-        v-bind="hero"
-        :opts="opts"
-        :deleteName="opts.deleteName"
-        :elemBack="opts.elemBack"
-        :typeBack="opts.typeBack"
-        :opacity="opts.opacity"
-        :filterElem="filterElem"
-        :filterType="filterType"
-        :filterRole="filterRole"
-        :width="iconWidthPx"
-        @selected="selected($event)"
-        @optinalSelected="additinalEvoSearch($event)"
-        @selectedRight="selectedRight($event)"
-      ></hero>
+
+    <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass"> 
+      <div v-for="hero in elemList(heroType)" :key="hero.id" :class="heroClass" :style="{ fontSize: fontSizePx }">
+        <hero
+          v-bind="hero"
+          :opts="opts"
+          :deleteName="opts.deleteName"
+          :elemBack="opts.elemBack"
+          :typeBack="opts.typeBack"
+          :opacity="opts.opacity"
+          :filterElem="filterElem"
+          :filterType="filterType"
+          :filterRole="filterRole"
+          :width="iconWidthPx"
+          @selected="selected($event)"
+          @optinalSelected="additinalEvoSearch($event)"
+          @selectedRight="selectedRight($event)"
+        ></hero>
+      </div>
     </div>
   </v-card>
 </template>
@@ -34,6 +37,7 @@ export default {
   },
   props: {
     level: Number,
+    heroTypeList: Array,
     opts: {
       iconWidth: Number,
       deleteName: Boolean,
@@ -41,6 +45,7 @@ export default {
       opacity: Number,
       horizon: Boolean,
       launage: String,
+      gamemode: Boolean,
     },
     filterElem: null,
     filterType: null,
@@ -63,6 +68,15 @@ export default {
           : 24;
       return w + 'px';
     },
+    fliterHeroTypeList() {
+      return this.opts.gamemode ? this.heroTypeList : ['all'];
+    },
+    heroTypeClass() {
+      return this.opts.gamemode && !this.opts.horizon ? 'gamemode-heroType' : 'heroType';
+    },
+    heroClass() {
+      return this.opts.gamemode && !this.opts.horizon ? 'gamemode-hero' : 'hero';
+    },
   },
   data: () => ({
     colors: ['#9E9E9E', '#a4b4a5', '#a4adc0', '#a68daf', '#b7af80'],
@@ -79,6 +93,10 @@ export default {
     window.removeEventListener('resize', this.adjustHeight);
   },
   methods: {
+    elemList(type) { 
+      //console.log(this.heros);
+      return this.heros.filter(hero => 'all' === type || hero.type === type);
+    },
     adjustHeight(e) {
       // iconW:iconH = 14:5
       const iconRate = this.opts.deleteName ? '0.7' : '0.36';
@@ -204,6 +222,13 @@ export default {
 <style scoped>
 .hero {
   display: inline-block;
+}
+.gamemode-hero {
+  display: block;
+}
+.gamemode-heroType {
+  display:inline-block; 
+  vertical-align: text-top;
 }
 .v-card {
   max-height: calc(100vh - 128px);

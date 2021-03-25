@@ -4,22 +4,25 @@
     @click.right="rclick"
     ref="wrapper"
   >
-    <div v-for="hero in heros" :key="hero.id" class="hero" :style="{ fontSize: fontSizePx }">
-      <hero
-        v-bind="hero"
-        :opts="opts"
-        :deleteName="opts.deleteName"
-        :elemBack="opts.elemBack"
-        :typeBack="opts.typeBack"
-        :opacity="opts.opacity"
-        :filterElem="filterElem"
-        :filterType="filterType"
-        :filterRole="filterRole"
-        :width="iconWidthPx"
-        @selected="selected($event)"
-        @optinalSelected="additinalEvoSearch($event)"
-        @selectedRight="selectedRight($event)"
-      ></hero>
+
+    <div v-for="heroType in fliterHeroTypeList" :key="heroType" :class="heroTypeClass"> 
+      <div v-for="hero in filterHeroByType(heroType)" :key="hero.id" :class="heroClass" :style="{ fontSize: fontSizePx }">
+        <hero
+          v-bind="hero"
+          :opts="opts"
+          :deleteName="opts.deleteName"
+          :elemBack="opts.elemBack"
+          :typeBack="opts.typeBack"
+          :opacity="opts.opacity"
+          :filterElem="filterElem"
+          :filterType="filterType"
+          :filterRole="filterRole"
+          :width="iconWidthPx"
+          @selected="selected($event)"
+          @optinalSelected="additinalEvoSearch($event)"
+          @selectedRight="selectedRight($event)"
+        ></hero>
+      </div>
     </div>
   </v-card>
 </template>
@@ -34,6 +37,7 @@ export default {
   },
   props: {
     level: Number,
+    heroTypeList: Array,
     opts: {
       iconWidth: Number,
       deleteName: Boolean,
@@ -41,6 +45,7 @@ export default {
       opacity: Number,
       horizon: Boolean,
       launage: String,
+      gamemode: Boolean,
     },
     filterElem: null,
     filterType: null,
@@ -63,6 +68,15 @@ export default {
           : 24;
       return w + 'px';
     },
+    fliterHeroTypeList() {
+      return this.opts.gamemode ? this.heroTypeList : ['all'];
+    },
+    heroTypeClass() {
+      return this.opts.gamemode && !this.opts.horizon ? 'gamemode-heroType' : 'heroType';
+    },
+    heroClass() {
+      return this.opts.gamemode && !this.opts.horizon ? 'gamemode-hero' : 'hero';
+    },
   },
   data: () => ({
     colors: ['#9E9E9E', '#a4b4a5', '#a4adc0', '#a68daf', '#b7af80'],
@@ -79,6 +93,9 @@ export default {
     window.removeEventListener('resize', this.adjustHeight);
   },
   methods: {
+    filterHeroByType(type) { 
+      return this.heros.filter(hero => 'all' === type || hero.type === type);
+    },
     adjustHeight(e) {
       // iconW:iconH = 14:5
       const iconRate = this.opts.deleteName ? '0.7' : '0.36';
@@ -91,9 +108,18 @@ export default {
       const cols = maxW / (iconW + margin);
       const needCols = parseInt(this.heros.length / rows + 0.99);
       const needRows = parseInt(this.heros.length / cols + 0.99);
+      const gamemodeHeroCounts = this.heros.reduce((groups, item) => {
+        const val = item['type'];
+        groups[val] = groups[val] || 0;
+        groups[val]++;
+        return groups
+      }, {});
+      const gamemodeNeedCols = Object.keys(gamemodeHeroCounts).map(key => gamemodeHeroCounts[key]).reduce((max, val) => max > val ? max : val);
       const _minWidth = needCols * (iconW + margin);
+      const _mingamemodWidth = gamemodeNeedCols * (iconW + margin);
+
       this.minWidth =
-        (this.opts.horizon ? _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
+        (this.opts.horizon ? this.opts.gamemode ? _mingamemodWidth : _minWidth : Math.min(window.innerWidth, _minWidth)) + 'px';
       this.maxHeight =
         (this.opts.horizon
           ? window.innerHeight
@@ -204,6 +230,13 @@ export default {
 <style scoped>
 .hero {
   display: inline-block;
+}
+.gamemode-hero {
+  display: block;
+}
+.gamemode-heroType {
+  display:inline-block; 
+  vertical-align: text-top;
 }
 .v-card {
   max-height: calc(100vh - 128px);

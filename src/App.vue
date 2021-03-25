@@ -125,6 +125,13 @@
                   </v-list-item-action>
                   <v-list-item-title>{{ this.appLaunages.options.horizon }}</v-list-item-title>
                 </v-list-item>
+
+                <v-list-item>
+                  <v-list-item-action>
+                    <v-switch v-model="opts.gamemode" color="purple"></v-switch>
+                  </v-list-item-action>
+                  <v-list-item-title>{{ this.appLaunages.options.gamemode }}</v-list-item-title>
+                </v-list-item>
               </v-list>
             </v-menu>
           </v-row>
@@ -243,6 +250,7 @@
           :filterElem="filterElem"
           :filterRole="filterRole"
           :filterType="filterType"
+          :heroTypeList="heroTypeList"
           @evoSearch="evoSearch"
           @additinalEvoSearch="additinalEvoSearch"
           @devoSearch="devoSearch"
@@ -268,6 +276,7 @@
 import HeroList from './components/heroList.vue';
 import heros from '@/heroDB.js';
 import languages from '@/languages.js';
+import heroType from '@/heroType.js';
 
 const range = (n) => [...Array(n).keys()];
 function reverse(arr) {
@@ -297,12 +306,14 @@ export default {
       reverse: false,
       release: '',
       launage: 'ja',
+      gamemode: false,
     },
     levels: range(5),
     heroNames: [],
     snackbar: false,
     snackbarText: '',
     appLaunages: languages[Object.keys(languages)[0]],
+    heroTypeList: heroType,
   }),
   computed: {
     lvs() {

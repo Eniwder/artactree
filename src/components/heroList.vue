@@ -69,7 +69,7 @@ export default {
       return w + 'px';
     },
     heroTypeClass() {
-      return this.opts.gamemode && !this.opts.horizon ? 'gamemode-heroType' : 'heroType';
+      return this.opts.gamemode ? 'gamemode-heroType' : 'heroType';
     },
     heroClass() {
       return this.opts.gamemode && !this.opts.horizon ? 'gamemode-hero' : 'hero';
@@ -223,6 +223,9 @@ export default {
   },
   watch: {
     'opts.iconWidth'() {
+      this.adjustHeight();
+    },
+    'opts.gamemode'() {
       this.adjustHeight();
     },
   },

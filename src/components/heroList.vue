@@ -228,6 +228,9 @@ export default {
     'opts.gamemode'() {
       this.adjustHeight();
     },
+    'opts.horizon'() {
+      this.adjustHeight();
+    },
   },
 };
 </script>

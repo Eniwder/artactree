@@ -380,7 +380,7 @@ export default {
     this.launageSetup();
 
     if (this.opts.release !== release) {
-      this.snackbar = true;
+      this.snackbar = !!this.appLaunages.snackbarText[release];
       this.snackbarText = this.appLaunages.snackbarText[release];
       this.opts.release = release;
     }
